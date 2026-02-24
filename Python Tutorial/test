@@ -1,0 +1,265 @@
+Web
+
+
+Dự án này liên quan đến việc xây dựng một ứng dụng web sử dụng Django, một framework web Python. Các nguồn cung cấp hướng dẫn về cách xây dựng các tính năng khác nhau như tài khoản người dùng, bài viết, lượt thích, bình luận và hệ thống nhắn tin hộp thư đến.
+
+Các mối quan hệ mã nguồn và tính năng dự án:
+●
+Tạo một ứng dụng mới:
+○
+Trước khi bắt đầu một tính năng mới, một ứng dụng Django mới được tạo ra bằng lệnh python manage.py startapp [app_name] trong terminal.
+○
+Ứng dụng mới sau đó được đăng ký trong tệp settings.py của dự án dưới INSTALLED_APPS.
+●
+Mô hình cơ sở dữ liệu:
+○
+Django sử dụng các mô hình để định nghĩa cấu trúc của cơ sở dữ liệu. Mỗi mô hình đại diện cho một bảng trong cơ sở dữ liệu.
+○
+Mỗi mô hình là một lớp Python kế thừa từ models.Model và định nghĩa các trường (cột) của bảng.
+○
+Các loại trường phổ biến bao gồm CharField, ImageField, ForeignKey và ManyToManyField.
+○
+Các mối quan hệ giữa các mô hình được định nghĩa bằng cách sử dụng ForeignKey (một-nhiều), ManyToManyField (nhiều-nhiều) và OneToOneField (một-một).
+○
+Khi một mô hình được tạo ra hoặc sửa đổi, các migration được tạo ra bằng cách sử dụng python manage.py makemigrations và áp dụng vào cơ sở dữ liệu bằng python manage.py migrate.
+●
+Views và Templates:
+○
+Views là các hàm xử lý yêu cầu và trả về phản hồi. Chúng thường hiển thị một template, là một tệp HTML định nghĩa cấu trúc và nội dung của trang.
+○
+Templates có thể được chia nhỏ thành các thành phần nhỏ hơn, tái sử dụng được gọi là includes hoặc snippets. Những thành phần này được bao gồm trong các template khác bằng cách sử dụng thẻ template {% include 'path/to/snippet.html' %}.
+○
+Dữ liệu được truyền từ views đến templates bằng cách sử dụng một từ điển ngữ cảnh.
+○
+Templates có thể sử dụng các thẻ template (ví dụ: {% url 'name_of_path' %}, {% for object in objects %}, {% if condition %}) và bộ lọc (ví dụ: {{ object.property|filter_name }}) để tạo nội dung động.
+●
+Forms:
+○
+Forms của Django được sử dụng để thu thập dữ liệu từ người dùng. Chúng xử lý việc hiển thị form, xác thực và xử lý dữ liệu.
+○
+Model forms là một cách tiện lợi để tạo forms dựa trên các mô hình Django.
+○
+Forms được bao gồm trong templates và được gửi đi bằng phương thức POST.
+●
+Xác thực người dùng:
+○
+Django cung cấp các tính năng xác thực người dùng tích hợp sẵn.
+○
+Gói django-allauth cung cấp thêm chức năng cho đăng ký, đăng nhập, xác thực email và xác thực tài khoản xã hội.
+●
+Lượt thích và Bình luận:
+○
+Lượt thích và bình luận được triển khai bằng cách sử dụng các mối quan hệ ManyToManyField giữa bài viết/bình luận và người dùng.
+○
+Các bảng trung gian tùy chỉnh được sử dụng để lưu trữ thông tin bổ sung như ngày và giờ của lượt thích/bình luận.
+●
+Nhắn tin hộp thư đến:
+○
+Một ứng dụng tách biệt được tạo ra cho tính năng hộp thư đến.
+○
+Lớp Q được sử dụng để tạo các truy vấn cơ sở dữ liệu phức tạp nhằm tìm kiếm người dùng và cuộc trò chuyện.
+○
+Phương thức values_list được sử dụng để truy xuất các giá trị cụ thể từ cơ sở dữ liệu.
+●
+HTMX và Hyperscript:
+○
+HTMX là một thư viện JavaScript được sử dụng để thực hiện các yêu cầu AJAX mà không cần tải lại toàn bộ trang.
+○
+Hyperscript là một ngôn ngữ kịch bản cho phép thêm hành vi động vào các phần tử HTML.
+○
+Cùng nhau, chúng nâng cao trải nghiệm người dùng bằng cách cung cấp các tính năng như cập nhật ngay lập tức, hoạt ảnh và cửa sổ modal.
+●
+Bộ trang trí Python:
+○
+Các bộ trang trí được sử dụng để sửa đổi hành vi của các hàm mà không cần thay đổi trực tiếp mã của chúng.
+○
+Các bộ trang trí tùy chỉnh có thể được tạo ra để tái sử dụng logic chung, chẳng hạn như logic lượt thích áp dụng cho bài viết và bình luận.
+●
+Tín hiệu Python:
+○
+Tín hiệu được sử dụng để kích hoạt các hành động khi các sự kiện nhất định xảy ra trong ứng dụng.
+○
+Tín hiệu post_save được kích hoạt sau khi một đối tượng được lưu vào cơ sở dữ liệu.
+○
+Tín hiệu có thể được sử dụng để tự động hóa các tác vụ, chẳng hạn như tạo hồ sơ người dùng khi một người dùng mới đăng ký.
+●
+Trình thu thập web:
+○
+Một trình thu thập web được xây dựng bằng các gói BeautifulSoup và requests để lấy dữ liệu từ các trang web bên ngoài, như Flickr.
+○
+Trình thu thập trích xuất dữ liệu như URL hình ảnh, tiêu đề và nghệ sĩ từ mã HTML của trang web mục tiêu.
+Phân tích toàn diện này về mã nguồn làm nổi bật các tính năng và chức năng chính của dự án ứng dụng web. Hiểu các mối quan hệ giữa các đoạn mã khác nhau và cấu trúc tổng thể của dự án là điều cần thiết để xây dựng thành công một ứng dụng web sử dụng Django.
+
+
+Chat
+
+
+Dự án Ứng dụng Chat Thời Gian Thực: Phân Tích Mã Nguồn
+Dự án này triển khai một ứng dụng chat thời gian thực sử dụng Django, Django Channels, WebSockets và HTMX. Các nguồn tài liệu được cung cấp bao gồm nhiều giai đoạn phát triển, từ thiết lập cơ bản đến các tính năng nâng cao như phòng chat riêng, chat nhóm, tải tệp và giám sát hoạt động của người dùng. Dưới đây là phân tích toàn diện về dự án, liên kết các khái niệm chính, chức năng và đoạn mã:
+
+Thiết lập Dự án và Chức năng Chat Cơ Bản:
+●
+Tạo Ứng dụng Django:
+○
+Một ứng dụng Django mới có tên core_rt_chat được tạo bằng cách sử dụng python manage.py startapp core_rt_chat.
+○
+Ứng dụng này sau đó được thêm vào INSTALLED_APPS trong tệp settings.py của dự án.
+●
+Mô hình Cơ sở Dữ liệu (models.py):
+○
+Mô hình ChatGroup: Lưu trữ thông tin về các phòng chat, bao gồm tên, liệu đó có phải là chat riêng, thành viên và người dùng trực tuyến.
+○
+Mô hình GroupMessage: Lưu trữ các tin nhắn được gửi trong mỗi phòng chat, bao gồm tác giả, nội dung, thời gian tạo và nhóm chat liên quan.
+●
+Giao diện Quản trị (admin.py):
+○
+Các mô hình ChatGroup và GroupMessage được đăng ký vào giao diện quản trị để dễ dàng quản lý.
+●
+Views (views.py):
+○
+View chat: Xử lý việc hiển thị giao diện chat và lấy thông tin tin nhắn và nhóm chat.
+○
+View chat_file_upload: Xử lý việc tải tệp lên phòng chat.
+●
+Mẫu (templates/):
+○
+chat.html: Mẫu giao diện chat chính, hiển thị tin nhắn, người dùng trực tuyến và các trường nhập liệu.
+○
+chat_message.html: Mẫu một phần để hiển thị các tin nhắn cá nhân.
+○
+Nhiều mẫu khác cho việc quản lý chat nhóm, khởi tạo chat riêng, v.v.
+●
+Biểu mẫu (forms.py):
+○
+ChatMessageCreateForm: Biểu mẫu để tạo các tin nhắn chat mới.
+○
+NewGroupForm: Biểu mẫu để tạo các chat nhóm mới.
+
+Tích hợp HTMX cho Tải Nội Dung Động:
+●
+Mở rộng HTMX:
+○
+Thư viện JavaScript HTMX và mở rộng WebSocket của nó được bao gồm trong base.html để cập nhật động.
+●
+Thuộc tính HTMX:
+○
+Các thuộc tính như hx-post, hx-target và hx-swap được sử dụng để chỉ định cách HTMX xử lý các yêu cầu và phản hồi.
+●
+Hyperscript:
+○
+Hyperscript được sử dụng để thêm hành vi động cho các phần tử, chẳng hạn như đặt lại trường nhập liệu sau khi gửi một tin nhắn.
+
+Triển khai WebSockets và Django Channels:
+●
+Cài đặt Django Channels:
+○
+Gói channels và máy chủ ASGI daphne được cài đặt bằng pip install -U channels[daphne].
+●
+Cấu hình ASGI (asgi.py):
+○
+Cấu hình WSGI mặc định được thay thế bằng cấu hình ASGI sử dụng daphne.
+○
+Một ProtocolTypeRouter được sử dụng để xử lý cả kết nối HTTP và WebSocket.
+●
+Định tuyến (routing.py):
+○
+Một bộ định tuyến URL được tạo để ánh xạ các URL WebSocket đến các hàm tiêu thụ.
+●
+Người tiêu dùng (consumers.py):
+○
+ChatRoomConsumer: Xử lý các kết nối WebSocket cho các phòng chat, bao gồm kết nối, nhận tin nhắn và ngắt kết nối.
+○
+OnlineStatusConsumer: Xử lý các kết nối WebSocket để theo dõi trạng thái trực tuyến của người dùng.
+●
+Lớp Kênh:
+○
+Lớp kênh trong bộ nhớ được sử dụng cho phát triển.
+○
+Lớp kênh redis được sử dụng cho sản xuất.
+●
+Các Hoạt động Bất đồng bộ:
+○
+Các hàm bất đồng bộ và bộ bọc async_to_sync được sử dụng để xử lý các tác vụ bất đồng bộ, như tương tác với lớp kênh.
+●
+Phát sóng Tin nhắn:
+○
+Hàm group_send được sử dụng để phát sóng tin nhắn đến tất cả các thành viên của một nhóm trong lớp kênh.
+●
+Bộ xử lý Sự kiện:
+○
+Các bộ xử lý sự kiện được định nghĩa để xử lý các tin nhắn nhận được từ lớp kênh.
+
+Triển khai Các Tính năng Nâng cao:
+●
+Phòng Chat Riêng:
+○
+Mô hình ChatGroup được sửa đổi để hỗ trợ các chat riêng.
+○
+Hàm view get_or_create_chat_room tạo hoặc lấy các phòng chat riêng.
+○
+Logic được thêm vào view chat và mẫu để hiển thị thông tin chat riêng.
+●
+Chat Nhóm:
+○
+Mô hình ChatGroup được cập nhật để lưu trữ tên chat nhóm và quản trị viên.
+○
+Chức năng tạo, tham gia, quản lý và rời khỏi chat nhóm được triển khai trong các view và mẫu.
+●
+Tải Tệp:
+○
+Mô hình GroupMessage được sửa đổi để hỗ trợ tải tệp.
+○
+Một biểu mẫu riêng được sử dụng để xử lý việc tải tệp qua các yêu cầu HTTP POST.
+○
+View chat_file_upload xử lý việc tải tệp và phát sóng tin nhắn đến nhóm chat.
+○
+Logic được thêm vào các mẫu để hiển thị các tệp đã tải lên.
+●
+Giám sát Hoạt động của Người dùng:
+○
+Một nhóm OnlineStatus được tạo trong cơ sở dữ liệu.
+○
+OnlineStatusConsumer xử lý các kết nối WebSocket để theo dõi người dùng trực tuyến.
+○
+Trạng thái trực tuyến được theo dõi trong cơ sở dữ liệu và cập nhật động bằng HTMX.
+○
+Các chỉ số được hiển thị trong tiêu đề và giao diện chat để cho thấy người dùng trực tuyến và phòng chat hiện tại của họ.
+
+Triển khai Ứng dụng:
+●
+Redis như một Lớp Kênh Sản Xuất:
+○
+Gói channels_redis được cài đặt để kết nối với cơ sở dữ liệu Redis.
+○
+Tệp settings.py được cấu hình để sử dụng Redis làm lớp kênh trong sản xuất.
+●
+Các Bước Triển Khai:
+○
+Các nguồn tài liệu phác thảo các bước tổng quát liên quan đến việc triển khai ứng dụng.
+○
+Điều này bao gồm việc thiết lập các biến môi trường, cấu hình cơ sở dữ liệu, cấu hình tệp tĩnh và tệp phương tiện, một kho lưu trữ GitHub, một máy chủ web và máy chủ ASGI daphne.
+
+Phân tích này cung cấp cái nhìn tổng quan toàn diện về dự án ứng dụng chat thời gian thực, liên kết các khái niệm chính, chức năng và đoạn mã từ các nguồn tài liệu được cung cấp. Việc xây dựng dự án này yêu cầu một hiểu biết vững chắc về Django, Django Channels, WebSockets và HTMX, cùng với kiến thức về quản lý cơ sở dữ liệu và quy trình triển khai.
+
+
+
+
+https://docs.google.com/document/d/1dbvLn1szt-fp6SOMKsNbjbH28vvGZYoabUJBZq2wZ9g/edit?tab=t.0
+
+https://www.facebook.com/watch?v=3845449162337210
+
+
+
+Frame work Django
+
+Video này giải thích cách framework Django hoạt động. Khi một người dùng nhập một URL vào trình duyệt của họ, trình duyệt sẽ gửi một yêu cầu đến phần back end của ứng dụng web.
+●
+Thành phần định tuyến URL của framework kiểm tra chức năng nào được ánh xạ đến URL được yêu cầu.
+●
+Chức năng tương ứng trong bộ điều khiển sau đó được gọi.
+●
+Nếu cần dữ liệu từ cơ sở dữ liệu, thành phần mô hình sẽ chuyển đổi các lệnh Python thành các lệnh SQL để tương tác với cơ sở dữ liệu và lấy dữ liệu cần thiết.
+●
+Thành phần view sử dụng một mẫu, được liên kết với một tệp CSS, hình ảnh tĩnh và các tệp JavaScript.
+●
+Django kết hợp tất cả các yếu tố này và gửi chúng trở lại trình duyệt, nơi người dùng nhìn thấy trang web đã yêu cầu.
